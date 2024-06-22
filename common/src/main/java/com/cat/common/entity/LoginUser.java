@@ -1,6 +1,10 @@
 package com.cat.common.entity;
 
-import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /***
  * 登录用户信息
@@ -9,33 +13,30 @@ import java.util.List;
  * @author xiaomaohuifaguang
  * @create 2024/6/20 22:24
  **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
 public class LoginUser {
 
+    /**
+     *  用户id
+     */
     private String userId;
+
+    /**
+     * 用户名
+     */
     private String username;
+
+    /**
+     * 昵称
+     */
     private String nickname;
 
-    public String getUserId() {
-        return userId;
-    }
+    /**
+     * 密码
+     */
+    private String password;
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 }

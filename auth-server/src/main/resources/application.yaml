@@ -21,10 +21,10 @@ spring:
 # knife4j 配置
 knife4j:
   enable: true
-#  basic:
-#    enable: true
-#    username: ${custom.knife4j.username}
-#    password: ${custom.knife4j.password}
+  basic:
+    enable: true
+    username: ${custom.knife4j.username}
+    password: ${custom.knife4j.password}
   setting:
     language: zh_cn
     enable-home-custom: true

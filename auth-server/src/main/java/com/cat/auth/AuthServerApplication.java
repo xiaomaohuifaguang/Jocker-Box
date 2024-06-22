@@ -1,5 +1,6 @@
 package com.cat.auth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,10 +12,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create 2024/6/18 22:20
  **/
 @SpringBootApplication
+@Slf4j
 public class AuthServerApplication {
 
     public static void main(String[] args) {
+        log.info("服务正在启动...");
         SpringApplication.run(AuthServerApplication.class, args);
+        log.info("服务启动成功...");
     }
+
 
 }
