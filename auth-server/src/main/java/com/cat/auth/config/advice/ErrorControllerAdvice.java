@@ -1,5 +1,9 @@
 package com.cat.auth.config.advice;
 
+import com.cat.common.entity.HttpResult;
+import com.cat.common.entity.HttpResultStatus;
+import com.cat.common.utils.ServletUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,14 +20,17 @@ public class ErrorControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public String error(Exception e){
+    public HttpResult<?> error(Exception e){
+        HttpServletResponse httpServletResponse = ServletUtils.getHttpServletResponse();
         e.printStackTrace();
-        String error = "错误";
+        HttpResultStatus error = HttpResultStatus.ERROR;
         if(e instanceof org.springframework.web.servlet.NoHandlerFoundException){
-            error = "404";
+            error = HttpResultStatus.NOT_FOUND;
+
         }else {
-            error = e.getMessage();
+            error.setMsg(e.getMessage());
         }
-        return error;
+        httpServletResponse.setStatus(error.code() == -1 ? 500 : (int) error.code());
+        return HttpResult.back(error);
     }
 }

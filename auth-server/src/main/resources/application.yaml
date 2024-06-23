@@ -6,6 +6,15 @@ custom:
   knife4j:
     username: knife4j
     password: knife4j
+  database:
+    url: jdbc:mysql://127.0.0.1:3306/joker-box?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: six6
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: six6
+    database: 0
 
 server:
   port: 8100
@@ -17,6 +26,24 @@ spring:
   mvc:
     path-match:
       matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${custom.database.url}
+    username: ${custom.database.username}
+    password: ${custom.database.password}
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/sql/*.sql
+  data:
+    redis:
+      host: ${custom.redis.host}
+      port: ${custom.redis.port}
+      password: ${custom.redis.password}
+      database: ${custom.redis.database}
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**.xml
 
 # knife4j 配置
 knife4j:

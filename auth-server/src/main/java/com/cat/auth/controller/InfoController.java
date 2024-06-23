@@ -1,5 +1,7 @@
 package com.cat.auth.controller;
 
+import com.cat.common.entity.HttpResult;
+import com.cat.common.entity.HttpResultStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +26,8 @@ public class InfoController {
 
     @Operation(summary = "版本")
     @RequestMapping(value = "/version", method = RequestMethod.GET)
-    public String version() {
-        return version;
+    public HttpResult<String> version() {
+        return HttpResult.back(HttpResultStatus.SUCCESS, version);
     }
 
 

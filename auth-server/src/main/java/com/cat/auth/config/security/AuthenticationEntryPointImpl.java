@@ -1,5 +1,8 @@
 package com.cat.auth.config.security;
 
+import com.cat.common.entity.HttpResult;
+import com.cat.common.entity.HttpResultStatus;
+import com.cat.common.utils.JSONUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json;utf-8");
         PrintWriter printWriter = response.getWriter();
-        printWriter.write("{}");
+        printWriter.write(JSONUtils.toJSONString(HttpResult.back(HttpResultStatus.UNAUTHORIZED)));
         printWriter.flush();
         printWriter.close();
     }

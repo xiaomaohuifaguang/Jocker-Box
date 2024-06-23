@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 /***
  * 鉴权服务主启动类
  * @title AuthServerApplication
@@ -13,13 +14,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 @Slf4j
+
 public class AuthServerApplication {
+
+
 
     public static void main(String[] args) {
         log.info("服务正在启动...");
         SpringApplication.run(AuthServerApplication.class, args);
         log.info("服务启动成功...");
     }
+
 
 
 }

@@ -17,8 +17,15 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <myModule.version>1.0-SNAPSHOT</myModule.version>
         <!-- knife4j版本 https://doc.xiaominfo.com/docs/quick-start -->
         <knife4j.version>4.4.0</knife4j.version>
+        <jjwt.version>0.12.5</jjwt.version>
+        <mybatis-plus.verson>3.5.7</mybatis-plus.verson>
+        <mysql-connector.version>8.4.0</mysql-connector.version>
+        <lombok.version>1.18.32</lombok.version>
+        <springcloud.verson>2023.0.2</springcloud.verson>
+        <springcloudalibaba.verson>2023.0.1.0</springcloudalibaba.verson>
     </properties>
 
     <!-- springboot 版本 -->
@@ -34,7 +41,23 @@
             <dependency>
                 <groupId>com.cat</groupId>
                 <artifactId>common</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${myModule.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springcloud.verson}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${springcloudalibaba.verson}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -47,7 +70,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.32</version>
+                <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -55,20 +78,45 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>0.12.5</version>
+                <version>${jjwt.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-impl</artifactId>
-                <version>0.12.5</version>
+                <version>${jjwt.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
-                <version>0.12.5</version>
+                <version>${jjwt.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.verson}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+
+
+
         </dependencies>
     </dependencyManagement>
 
