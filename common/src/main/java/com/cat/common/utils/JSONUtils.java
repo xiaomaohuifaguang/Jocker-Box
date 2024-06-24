@@ -2,6 +2,7 @@ package com.cat.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /***
  * JSON工具类
@@ -12,13 +13,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  **/
 public class JSONUtils {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    static {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
+
     /**
      * 对象转换JSON格式字符串
      * @param o 待转换对象
      * @return JSON格式字符串
      */
     public static String toJSONString(Object o){
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.writeValueAsString(o);
         } catch (JsonProcessingException e) {
@@ -33,7 +39,6 @@ public class JSONUtils {
      * @return 传入类型的对象
      */
     public static <T> T parseObject(String jsonStr, Class<T> objectClass){
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(jsonStr, objectClass);
         } catch (JsonProcessingException e) {
