@@ -1,6 +1,7 @@
 package com.cat.auth.config.security;
 
 import com.cat.common.entity.LoginUser;
+import com.cat.common.entity.Role;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 /***
@@ -92,6 +95,7 @@ public class SecurityConfig {
         loginUser.setUserId(UUID.randomUUID().toString());
         loginUser.setUsername(UUID.randomUUID().toString());
         loginUser.setNickname(UUID.randomUUID().toString());
+        loginUser.setRoles(List.of(new Role().setId(new Random().nextInt(9999))));
         UserDetails userDetails = User.withUserDetails(new UserDetailsImpl(loginUser)).build();
         return new InMemoryUserDetailsManager(userDetails);
     }

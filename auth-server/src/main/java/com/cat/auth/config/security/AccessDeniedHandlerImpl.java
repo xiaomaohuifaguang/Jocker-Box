@@ -26,7 +26,8 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        response.setContentType("application/json;utf-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.write(JSONUtils.toJSONString(HttpResult.back(HttpResultStatus.FORBIDDEN)));
         printWriter.flush();

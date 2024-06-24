@@ -25,7 +25,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setContentType("application/json;utf-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.write(JSONUtils.toJSONString(HttpResult.back(HttpResultStatus.UNAUTHORIZED)));
         printWriter.flush();

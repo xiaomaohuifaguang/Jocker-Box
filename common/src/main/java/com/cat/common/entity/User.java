@@ -32,13 +32,13 @@ public class User implements Serializable {
 
     @Schema(description = "用户id")
     @TableId(value = "id", type = IdType.AUTO)
-    private String id;
+    private Integer id;
 
     @Schema(description = "用户类型 0 用户 1系统")
     private String type;
 
     @Schema(description = "删除标识 0 否 1是")
-    private String delete;
+    private String deleted;
 
     @Schema(description = "用户名")
     private String username;
@@ -58,6 +58,6 @@ public class User implements Serializable {
     private LocalDateTime updateTime;
 
     public String getId(){
-        return String.format("%010d", Integer.parseInt(this.id));
+        return String.format("%010d", this.id);
     }
 }

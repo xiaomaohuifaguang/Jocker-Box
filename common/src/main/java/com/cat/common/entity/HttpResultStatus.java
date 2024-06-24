@@ -13,7 +13,7 @@ public enum HttpResultStatus {
     SUCCESS(HttpStatus.OK.value(), "请求成功"),
     ERROR(-1,"请求失败"),
     NOT_FOUND(HttpStatus.NOT_FOUND.value(), "请求不存在"),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "未授权"),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "鉴权失败"),
     FORBIDDEN(HttpStatus.FORBIDDEN.value(), "权限不足")
     ;
 

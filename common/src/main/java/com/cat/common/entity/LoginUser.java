@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /***
  * 登录用户信息
  * @title LoginUser
@@ -39,4 +41,17 @@ public class LoginUser {
      */
     private String password;
 
+    /**
+     * 角色
+     */
+    private List<Role> roles;
+
+
+    public LoginUser(User user, List<Role> roles) {
+        setUserId(user.getId());
+        setUsername(user.getUsername());
+        setPassword(user.getPassword());
+        setNickname(user.getNickname());
+        setRoles(roles);
+    }
 }

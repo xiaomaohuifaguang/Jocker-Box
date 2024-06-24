@@ -1,14 +1,18 @@
 package com.cat.auth.config.security;
 
+import com.cat.common.entity.CONSTANTS;
 import com.cat.common.entity.LoginUser;
+import com.cat.common.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
 
 /***
  * <TODO description class purpose>
@@ -17,17 +21,16 @@ import java.util.UUID;
  * @author xiaomaohuifaguang
  * @create 2024/6/20 0:36
  **/
-public class UserDetailsImpl implements UserDetails {
-
-    private final LoginUser loginUser;
-
-    public UserDetailsImpl(LoginUser loginUser) {
-        this.loginUser = loginUser;
-    }
+public record UserDetailsImpl(LoginUser loginUser) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : loginUser.getRoles()) {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(String.valueOf(role.getId()));
+            authorities.add(authority);
+        }
+        return authorities;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return loginUser.getNickname();
+        return loginUser.getUsername();
     }
 
     @Override
@@ -59,4 +62,5 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
