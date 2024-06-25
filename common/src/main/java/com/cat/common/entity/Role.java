@@ -2,6 +2,7 @@ package com.cat.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ public class Role implements Serializable {
     private String name;
 
     @Schema(description = "删除标识 0 否 1 是")
+    @TableLogic
     private String deleted;
 
     @Schema(description = "创建时间")

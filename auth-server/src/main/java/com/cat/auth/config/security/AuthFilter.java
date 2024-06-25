@@ -1,6 +1,7 @@
 package com.cat.auth.config.security;
 
 import com.cat.auth.service.UserService;
+import com.cat.common.entity.CONSTANTS;
 import com.cat.common.entity.LoginUser;
 import jakarta.annotation.Resource;
 import jakarta.servlet.*;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -33,13 +35,17 @@ public class AuthFilter extends OncePerRequestFilter {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        LoginUser loginUser = userService.getLoginUserByToken(token);
 
-        UserDetailsImpl userDetails = new UserDetailsImpl(loginUser);
+        if( StringUtils.hasText(token) && token.startsWith("Bearer ") ){
+            LoginUser loginUser = userService.getLoginUserByToken(token);
 
-        // 保存用户信息 到SecurityContextHolder
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            UserDetailsImpl userDetails = new UserDetailsImpl(loginUser);
+
+            // 保存用户信息 到SecurityContextHolder
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+
 
         filterChain.doFilter(request, response);
 

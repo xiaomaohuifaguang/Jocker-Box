@@ -1,8 +1,6 @@
-package com.cat.auth.config.redis;
+package com.cat.file.config.redis;
 
-import com.cat.common.utils.JSONUtils;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;

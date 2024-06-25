@@ -1,6 +1,5 @@
-package com.cat.auth.config.security;
+package com.cat.file.config.security;
 
-import com.cat.common.entity.CONSTANTS;
 import com.cat.common.entity.LoginUser;
 import com.cat.common.entity.Role;
 import org.springframework.security.core.GrantedAuthority;

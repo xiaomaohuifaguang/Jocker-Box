@@ -12,7 +12,11 @@ public class CONSTANTS {
 
     public static final String REDIS_PARENT_TOKEN = "token:";
 
-    public static final String LOGIN_ROLE = "LOGIN_ROLE";
+    /**
+     * Security 匿名用户 角色
+     */
+    public static final String ANONYMOUS_ROLE = "ROLE_ANONYMOUS";
+
 
 
 }

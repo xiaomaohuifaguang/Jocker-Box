@@ -1,4 +1,4 @@
-package com.cat.auth.config.security;
+package com.cat.file.config.security;
 
 import com.cat.common.entity.CONSTANTS;
 import com.cat.common.entity.HttpResultStatus;
