@@ -10,3 +10,11 @@ spring:
         register-enabled: true
       config:
         file-extension: yaml
+    loadbalancer:
+      nacos:
+        enabled: true
+    openfeign:
+      httpclient:
+        connection-timeout: 5000
+        ok-http:
+          read-timeout: 120s

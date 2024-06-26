@@ -4,6 +4,7 @@ import com.cat.auth.service.UserService;
 import com.cat.common.entity.HttpResult;
 import com.cat.common.entity.HttpResultStatus;
 import com.cat.common.entity.LoginInfo;
+import com.cat.common.entity.LoginUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -33,6 +34,12 @@ public class AuthController {
     public HttpResult<String> getToken(@RequestBody LoginInfo loginInfo){
         String token = userService.getToken(loginInfo);
         return HttpResult.back(StringUtils.hasText(token) ? HttpResultStatus.SUCCESS : HttpResultStatus.ERROR, token);
+    }
+
+    @Operation(summary = "令牌鉴权")
+    @RequestMapping(value = "/getLoginUserByToken", method = RequestMethod.POST)
+    public HttpResult<LoginUser> getLoginUser(@RequestBody LoginInfo loginInfo){
+        return HttpResult.back(userService.getLoginUserByToken(loginInfo.getToken()));
     }
 
 }

@@ -106,13 +106,14 @@ public class MinioService {
      * @param inputStream 输入流
      * @param contentType contentType取值最好在org.springframework.http.MediaType
      */
-    public void putObject(String bucketName, String object, InputStream inputStream, String contentType) {
+    public String putObject(String bucketName, String object, InputStream inputStream, String contentType) {
         try {
-            minioClient.putObject(
+            ObjectWriteResponse objectWriteResponse = minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucketName).object(object).stream(
                                     inputStream, -1, 10485760)
                             .contentType(contentType)
                             .build());
+            return objectWriteResponse.etag();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

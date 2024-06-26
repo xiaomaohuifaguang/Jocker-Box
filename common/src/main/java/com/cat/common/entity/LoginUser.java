@@ -42,6 +42,11 @@ public class LoginUser {
     private String password;
 
     /**
+     * 用户类型
+     */
+    private String type;
+
+    /**
      * 角色
      */
     private List<Role> roles;
@@ -52,6 +57,7 @@ public class LoginUser {
         setUsername(user.getUsername());
         setPassword(user.getPassword());
         setNickname(user.getNickname());
+        setType(user.getType());
         setRoles(roles);
     }
 }

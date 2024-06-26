@@ -57,8 +57,8 @@ public class MybatisPlusUtils {
     }
 
     public static void main(String[] args) {
-        String packageName = "com.cat.auth";
-        String tableName = "cat_role";
+        String packageName = "com.cat.file";
+        String tableName = "cat_file_info";
         String outDir = "D:\\todo\\mybatis-plus\\joker-box";
         String author = "xiaomaohuifaguang";
 

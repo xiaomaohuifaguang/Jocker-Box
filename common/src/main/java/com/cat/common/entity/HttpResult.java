@@ -46,11 +46,9 @@ public class HttpResult<T> {
         return new HttpResult<T>().setCode(code).setData(data).setMsg(msg);
     }
 
-    public static HttpResult<?> back(HttpResultStatus httpResultStatus){
-        return new HttpResult<>().setCode(httpResultStatus.code()).setMsg(httpResultStatus.msg());
+    public static <T> HttpResult<T> back(HttpResultStatus httpResultStatus){
+        return new HttpResult<T>().setCode(httpResultStatus.code()).setMsg(httpResultStatus.msg());
     }
-
-
 
 
 }

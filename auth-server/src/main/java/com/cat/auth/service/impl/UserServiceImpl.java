@@ -28,8 +28,6 @@ public class UserServiceImpl implements UserService {
 
     private final long tokenExpire = 14 * 24 * 60 * 60;
 
-    private final String scene = "Bearer ";
-
     @Resource
     private UserMapper userMapper;
     @Resource
@@ -47,21 +45,21 @@ public class UserServiceImpl implements UserService {
     public LoginUser getLoginUser(String username) {
         // 缓存读取
         LoginUser loginUser = redisService.get(CONSTANTS.REDIS_PARENT_TOKEN + username, LoginUser.class);
-        if(!ObjectUtils.isEmpty(loginUser)) return loginUser;
+        if (!ObjectUtils.isEmpty(loginUser)) return loginUser;
 
         // 数据库读取
         User user = this.getUserByUsername(username); // 获取用户通过username
         List<Role> roles = roleMapper.getRolesByUserId(user.getId()); // 获取角色通过userId
         loginUser = new LoginUser(user, roles);
-        redisService.set(CONSTANTS.REDIS_PARENT_TOKEN+loginUser.getUsername(), loginUser, tokenExpire); // 存储缓存redis
+        redisService.set(CONSTANTS.REDIS_PARENT_TOKEN + loginUser.getUsername(), loginUser, tokenExpire); // 存储缓存redis
         return loginUser;
     }
 
     @Override
     public LoginUser getLoginUserByToken(String token) {
-        token = token.replace(scene, "");
+        token = token.replace(CONSTANTS.TOKEN_TYPE + " ", "");
         Map<String, Object> decrypt = JwtUtils.decrypt(token);
-        if(ObjectUtils.isEmpty(decrypt)) return null;
+        if (ObjectUtils.isEmpty(decrypt)) return null;
         String userId = (String) decrypt.get("userId");
         String username = (String) decrypt.get("username");
         String password = (String) decrypt.get("password");
@@ -72,8 +70,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("deleted","0");
-        queryWrapper.eq("username",username);
+        queryWrapper.eq("deleted", "0");
+        queryWrapper.eq("username", username);
         return userMapper.selectOne(queryWrapper);
     }
 
@@ -82,33 +80,39 @@ public class UserServiceImpl implements UserService {
         return roleMapper.getRolesByUserId(userId);
     }
 
-    private String makeToken(LoginUser loginUser){
-        return scene + JwtUtils.encrypt(new HashMap<>() {{
+    private String makeToken(LoginUser loginUser) {
+        if(loginUser.getType().equals(CONSTANTS.USER_TYPE_SERVER)){
+            return JwtUtils.encrypt(new HashMap<>() {{
+                put("userId", loginUser.getUserId());
+                put("username", loginUser.getUsername());
+                put("password", loginUser.getPassword());
+            }}, 0);
+        }
+
+
+        return JwtUtils.encrypt(new HashMap<>() {{
             // 随机插入 随机字符串
-            for(int start=0 ; start < new Random().nextInt(2) ;start++){
+            for (int start = 0; start < new Random().nextInt(2); start++) {
                 put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
             }
             put("userId", loginUser.getUserId());
             // 随机插入 随机字符串
-            for(int start=0 ; start < new Random().nextInt(2) ;start++){
+            for (int start = 0; start < new Random().nextInt(2); start++) {
                 put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
             }
             put("username", loginUser.getUsername());
             // 随机插入 随机字符串
-            for(int start=0 ; start < new Random().nextInt(2) ;start++){
+            for (int start = 0; start < new Random().nextInt(2); start++) {
                 put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
             }
             // 随机插入 随机字符串
             put("password", loginUser.getPassword());
             // 随机插入 随机字符串
-            for(int start=0 ; start < new Random().nextInt(2) ;start++){
+            for (int start = 0; start < new Random().nextInt(2); start++) {
                 put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
             }
-        }},tokenExpire);
+        }}, tokenExpire);
     }
-
-
-
 
 
 }

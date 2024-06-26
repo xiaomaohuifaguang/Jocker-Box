@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /***
@@ -15,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create 2024/6/18 22:20
  **/
 @SpringBootApplication
+@EnableFeignClients(basePackages = {"com.cat.api"})
 @Slf4j
 public class FileServerApplication {
 

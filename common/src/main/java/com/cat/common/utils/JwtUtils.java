@@ -65,11 +65,13 @@ public class JwtUtils {
         JwtBuilder builder = Jwts.builder();
         // 设置加密方式和密码
         builder.signWith(secretKey(JWT_KEY));
-        builder.header().add("custom-header", UUID.randomUUID().toString());
+        if(seconds > 0){
+            builder.header().add("custom-header", UUID.randomUUID().toString());
 //        builder.subject("");
-        builder.id(UUID.randomUUID().toString());
-        builder.issuedAt(new Date());
-        builder.expiration(new Date(System.currentTimeMillis() + (seconds * 1000)));
+            builder.id(UUID.randomUUID().toString());
+            builder.issuedAt(new Date());
+            builder.expiration(new Date(System.currentTimeMillis() + (seconds * 1000)));
+        }
         // 通过map传值
         builder.claims().add(map);
         return builder.compact();

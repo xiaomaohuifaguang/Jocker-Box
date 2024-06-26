@@ -72,7 +72,7 @@ public class SecurityConfig {
                             authorize.requestMatchers("/favicon.ico").permitAll();
                             authorize.requestMatchers("/v3/api-docs/**").permitAll();
                             authorize.requestMatchers("/info/version").permitAll();
-                            authorize.requestMatchers("/auth/getToken").permitAll();
+                            authorize.requestMatchers("/file/download").permitAll();
 //                            authorize.anyRequest().authenticated();
                             authorize.anyRequest().access(authorizationManager);
                         }

@@ -17,6 +17,21 @@ public class CONSTANTS {
      */
     public static final String ANONYMOUS_ROLE = "ROLE_ANONYMOUS";
 
+    /**
+     * 令牌类型
+     */
+    public static final String TOKEN_TYPE = "Bearer";
+
+    /**
+     * 用户类型 普通用户
+     */
+    public static final String USER_TYPE_USER = "0";
+
+    /**
+     * 用户类型 服务
+     */
+    public static final String USER_TYPE_SERVER = "1";
+
 
 
 }

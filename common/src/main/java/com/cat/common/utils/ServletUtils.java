@@ -2,8 +2,12 @@ package com.cat.common.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /***
  * ServletUtils工具类
@@ -35,6 +39,14 @@ public class ServletUtils {
         ServletRequestAttributes servletRequestAttributes =  (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert servletRequestAttributes != null;
         return servletRequestAttributes.getResponse();
+    }
+
+
+    public static void back(Object o) throws IOException {
+        HttpServletResponse response = getHttpServletResponse();
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
+        response.getWriter().write(JSONUtils.toJSONString(o));
     }
 
 

@@ -1,16 +1,17 @@
 package com.cat.auth.config.security;
 
 import com.cat.auth.service.UserService;
-import com.cat.common.entity.CONSTANTS;
 import com.cat.common.entity.LoginUser;
 import jakarta.annotation.Resource;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -31,19 +32,19 @@ public class AuthFilter extends OncePerRequestFilter {
     private UserService userService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-
         if( StringUtils.hasText(token) && token.startsWith("Bearer ") ){
             LoginUser loginUser = userService.getLoginUserByToken(token);
+            if(!ObjectUtils.isEmpty(loginUser)){
+                UserDetailsImpl userDetails = new UserDetailsImpl(loginUser);
+                // 保存用户信息 到SecurityContextHolder
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
 
-            UserDetailsImpl userDetails = new UserDetailsImpl(loginUser);
-
-            // 保存用户信息 到SecurityContextHolder
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
 
