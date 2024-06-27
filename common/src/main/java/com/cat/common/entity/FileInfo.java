@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.cat.common.utils.IOUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -35,7 +34,10 @@ public class FileInfo implements Serializable {
     private String filename;
 
     @Schema(description = "文件类型")
-    private String fileType;
+    private String contentType;
+
+    @Schema(description = "文件大小")
+    private long size;
 
     @Schema(description = "创建人id")
     private Integer userId;
@@ -48,10 +50,4 @@ public class FileInfo implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8")
     private LocalDateTime updateTime;
 
-
-    public FileInfo setFilename(String filename) {
-        this.filename = filename;
-        this.fileType = IOUtils.fileType(filename);
-        return this;
-    }
 }

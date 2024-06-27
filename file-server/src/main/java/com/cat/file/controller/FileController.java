@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
@@ -38,7 +35,7 @@ public class FileController {
             @Parameter(name = "uploadFile", schema = @Schema(format = "binary"), description = "文件",required = true)
     })
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public HttpResult<FileInfo> upload(@RequestParam(value = "uploadFile") MultipartFile uploadFile) throws IOException {
+    public HttpResult<FileInfo> upload(@RequestPart(value = "uploadFile") MultipartFile uploadFile) throws IOException {
         FileInfo upload = fileService.upload(uploadFile);
         return ObjectUtils.isEmpty(upload) ? HttpResult.back(HttpResultStatus.ERROR) : HttpResult.back(upload);
     }

@@ -73,6 +73,7 @@ public class SecurityConfig {
                             authorize.requestMatchers("/v3/api-docs/**").permitAll();
                             authorize.requestMatchers("/info/version").permitAll();
                             authorize.requestMatchers("/auth/getToken").permitAll();
+                            authorize.requestMatchers("/auth/test1").permitAll();
 //                            authorize.anyRequest().authenticated();
                             authorize.anyRequest().access(authorizationManager);
                         }

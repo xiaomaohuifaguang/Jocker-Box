@@ -26,6 +26,10 @@ spring:
   mvc:
     path-match:
       matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 5GB
+      max-request-size: 5GB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${custom.database.url}
@@ -56,4 +60,7 @@ knife4j:
     language: zh_cn
     enable-home-custom: true
     home-custom-path: classpath:doc/home.md
+    # 开启动态请求参数，true-开启，false-关闭
+    enable-dynamic-parameter: true
+
 

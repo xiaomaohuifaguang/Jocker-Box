@@ -139,6 +139,21 @@ public class MinioService {
         }
     }
 
+    public InputStream getObject(String bucketName, String object, long offset, long length) {
+        try {
+            return minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(object)
+                            .offset(offset)
+                            .length(length)
+                            .build());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * 删除对象
      * @param bucketName bucketName

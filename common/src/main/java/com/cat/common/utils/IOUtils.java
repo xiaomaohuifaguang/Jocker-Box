@@ -29,9 +29,19 @@ public class IOUtils {
         return null;
     }
 
-
     public static void saveStream(InputStream inputStream, OutputStream outputStream) throws IOException {
         BufferedInputStream in = new BufferedInputStream(inputStream);
+        BufferedOutputStream out = new BufferedOutputStream(outputStream);
+        byte[] bytes = new byte[1024];
+        while (in.read(bytes) != -1){
+            out.write(bytes);
+        }
+        inputStream.close();
+        outputStream.close();
+    }
+
+    public static void save(File inFile, OutputStream outputStream) throws IOException {
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(inFile));
         BufferedOutputStream out = new BufferedOutputStream(outputStream);
         byte[] bytes = new byte[1024];
         while (in.read(bytes) != -1){
